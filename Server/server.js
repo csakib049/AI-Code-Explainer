@@ -32,7 +32,7 @@ app.use(limiter);
 
 
 //if user sends bigger file then 10mb then the server will not accept it .
-app.use(express.json({limit:"10mb"}));
+app.use(express.json({ limit: "10mb" }));
 
 
 const API_KEY=process.env.NEBIUS_API_KEY;
@@ -45,9 +45,9 @@ const client = new OpenAI({
 });
 
 
-
+ 
 //app.post() is used when we want to SEND data to the server.
-app.post("/api/explalin-code",async(req,res)=>{
+app.post("/api/explain-code",async (req, res)=>{
         
     try{
         const{code,language }=req.body;
@@ -57,13 +57,13 @@ app.post("/api/explalin-code",async(req,res)=>{
 
         }                                 
 
-        const messsages=[
+        const messages=[ 
             {
                 role:"user",
                 content:`Please explain this ${
                     language||""
-                }code in simple terms :\n\n\`\`\`${language|| ""}\n${code}\n\`\`\` `
-            }
+                }code in simple terms :\n\n\`\`\`${language || ""}\n${code}\n\`\`\``,
+            },
         ];
 
 
@@ -83,7 +83,7 @@ app.post("/api/explalin-code",async(req,res)=>{
         }
 
 
-        res.json({explanation,language: language|| "unknown"}); //This line sends a JSON response back to the user containing the AI's explanation and the detected language (or "unknown" if the language is missing).
+        res.json({explanation,language: language || "unknown"}); //This line sends a JSON response back to the user containing the AI's explanation and the detected language (or "unknown" if the language is missing).
 
 
     }catch(err){
