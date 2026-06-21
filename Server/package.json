@@ -10,6 +10,7 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "bytez.js": "^3.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
