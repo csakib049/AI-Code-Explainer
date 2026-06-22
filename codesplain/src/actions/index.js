@@ -1,18 +1,13 @@
-"user server"
-
-export async function explain(prevState,formData) {
+export async function explain(prevState, formData) {
     const code = formData.get("code");
     const language = formData.get("language");
 
-
     try{
-
         const res = await fetch (`${import.meta.env.VITE_API_BASE_URL}/explain-code`,{
             method:"POST",
-            header:{"Content-Type":"application/json"},
-            body: JSON.stringify({code,language}),
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({code, language}),
         });
-
 
         if(!res.ok){
             return{
@@ -28,13 +23,10 @@ export async function explain(prevState,formData) {
             data
         }
 
-
     }catch(err){
         return{
             success:false,
             error:`An Error Occured: ${err?.message}`,
         };
-
     }
-
 }

@@ -1,15 +1,20 @@
-import React from 'react'
-import Markdown from 'react-markdown';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
-const CodeExplanation = ({explanation}) => {
+const CodeExplanation = ({ explanation }) => {
   return (
-    <div className='w-full max-w-4xl mt-6 bg-gray-50 p-6 rounded-2xl shadow-lg'>
-      <h2 className='text-xl font-semibold mb-2'>Explanation:</h2>
-      <Markdown remarkPlugins={[remarkGfm]}>{explanation}</Markdown>
+    <div className='w-full max-w-4xl mt-6 bg-gray-900 border border-gray-700 p-6 rounded-2xl shadow-2xl'>
+      <h2 className='text-xl font-semibold mb-4 text-emerald-400 flex items-center gap-2'>
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Explanation
+      </h2>
+      <div className="text-gray-300 leading-relaxed prose max-w-none">
+        <Markdown remarkPlugins={[remarkGfm]}>{explanation}</Markdown>
+      </div>
     </div>
-  ) 
+  )
 }
 
 export default CodeExplanation

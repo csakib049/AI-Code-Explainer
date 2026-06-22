@@ -12,14 +12,15 @@ const app = express();
 //security Middleware
 
 app.use(helmet()); //Helmet is a security middleware that helps protect your Express app by setting various HTTP headers.
+
 app.use(
     cors({
-        origin: process.env.FRONTED_URL || "http://localhost:3000",
+        origin: process.env.FRONTEND_URL || "http://localhost:3000",
         credentials: true,
     })
 
 );
-
+                  
 
 //reteLimite limits users access in a website 
 const limiter = rateLimit({
@@ -49,11 +50,13 @@ const client = new OpenAI({
 //app.post() is used when we want to SEND data to the server.
 app.post("/api/explain-code",async (req, res)=>{
         
-    try{
+    try{ 
         const{code,language }=req.body;
 
         if(!code){
-            return res.status(400).json({error:"Code is required."});
+            return res.status(400).json({
+                error:"Code is required."
+            });
 
         }                                 
 
@@ -63,9 +66,8 @@ app.post("/api/explain-code",async (req, res)=>{
                 content:`Please explain this ${
                     language||""
                 }code in simple terms :\n\n\`\`\`${language || ""}\n${code}\n\`\`\``,
-            },
+            }              
         ];
-
 
         const response= await client.chat.completions.create({
             model: "openai/gpt-oss-120b",
@@ -88,7 +90,10 @@ app.post("/api/explain-code",async (req, res)=>{
 
     }catch(err){
        console.error("Code Explain API Error:",err);
-       res.status(500).json({error:"Server error",details:err.message}); //500 server crashed
+       res.status(500).json({
+        error:"Server error",
+        details:err.message
+    }); //500 server crashed
     }
 });
 
