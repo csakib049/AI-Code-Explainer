@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const Error = ({ error }) => {
   return (
     <div className='mt-6 bg-red-900/30 border border-red-700 p-4 rounded-xl'>
@@ -9,6 +11,10 @@ const Error = ({ error }) => {
       </p>
     </div>
   )
+}
+
+Error.propTypes = {
+  error: PropTypes.string.isRequired,
 }
 
 export default Error

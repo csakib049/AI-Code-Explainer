@@ -11,15 +11,13 @@
 }
 
 body {
-  background: #0a0a0f;
+  font-family: 'Source Code Pro', monospace;
+  background: #000000;
   color: #e5e7eb;
   min-height: 100vh;
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   position: relative;
   z-index: 1;
 }
@@ -48,7 +46,7 @@ body {
   color: #34d399;
 }
 
-/* Background animation */
+/* ─── Animated gradient background ─── */
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -61,9 +59,80 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(-45deg, #0a0a0f, #1a1a2e, #16213e, #0f3460);
+  background: linear-gradient(-45deg, #000000, #0a0a0f, #0d1117, #000000);
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  animation: gradientShift 20s ease infinite;
   z-index: -1;
 }
+
+/* ─── Floating orbs ─── */
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+  25% { transform: translate(30px, -40px) scale(1.2); opacity: 0.25; }
+  50% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.1; }
+  75% { transform: translate(40px, 30px) scale(1.1); opacity: 0.2; }
+}
+
+#background::before,
+#background::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+#background::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(52, 211, 153, 0.12);
+  top: 10%;
+  left: -5%;
+  animation: floatOrb 18s ease-in-out infinite;
+}
+
+#background::after {
+  width: 500px;
+  height: 500px;
+  background: rgba(13, 148, 136, 0.08);
+  bottom: 5%;
+  right: -5%;
+  animation: floatOrb 22s ease-in-out infinite reverse;
+}
+
+/* ─── Subtle grid overlay ─── */
+#background .grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.05); }
+  50% { box-shadow: 0 0 40px rgba(52, 211, 153, 0.12); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ─── Smooth scrollbar ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #374151; }
 
